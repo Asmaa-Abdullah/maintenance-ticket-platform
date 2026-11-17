@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -77,7 +78,7 @@ class AssignmentControllerIntegrationTest {
     }
 
     @Test
-    void shouldReturn409WhenTicketIsAlreadyAssigned() throws Exception {
+    void shouldReassignTicketToAnotherTechnician() throws Exception {
 
         UUID ticketId = UUID.randomUUID();
         Long firstTechnicianId = 15L;
@@ -106,9 +107,9 @@ class AssignmentControllerIntegrationTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
-                .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.status").value(409))
-                .andExpect(jsonPath("$.error").value("TICKET_ALREADY_ASSIGNED"))
-                .andExpect(jsonPath("$.message").value("Ticket is already assigned: " + ticketId));
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.ticketId").value(ticketId.toString()))
+                .andExpect(jsonPath("$.technicianId").value(secondTechnicianId));
     }
 }
