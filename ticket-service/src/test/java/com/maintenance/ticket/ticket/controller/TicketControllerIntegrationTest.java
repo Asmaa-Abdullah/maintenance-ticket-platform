@@ -12,6 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.startsWith;
@@ -333,6 +337,12 @@ class TicketControllerIntegrationTest {
 
         mockMvc.perform(
                         patch("/api/v1/tickets/{id}/status", savedTicket.getId())
+                                .with(jwt().jwt(token -> token
+                                        .claim("role", "ADMIN")
+                                        .claim("userId", "1")
+                                ).authorities(
+                                        new SimpleGrantedAuthority("ADMIN")
+                                ))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )
@@ -356,6 +366,12 @@ class TicketControllerIntegrationTest {
 
         mockMvc.perform(
                         patch("/api/v1/tickets/{id}/status", ticketId)
+                                .with(jwt().jwt(token -> token
+                                        .claim("role", "ADMIN")
+                                        .claim("userId", "1")
+                                ).authorities(
+                                        new SimpleGrantedAuthority("ADMIN")
+                                ))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestBody)
                 )

@@ -297,7 +297,6 @@ public class TicketController {
                     )
             )
     })
-
     @PreAuthorize("hasAnyAuthority('ADMIN', 'TECHNICIAN')")
     @PatchMapping("/{id}/status")
     public ResponseEntity<TicketResponse> updateTicketStatus(
