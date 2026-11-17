@@ -1,0 +1,3 @@
+ALTER TABLE tickets
+ALTER COLUMN technician_id TYPE BIGINT
+USING NULL;

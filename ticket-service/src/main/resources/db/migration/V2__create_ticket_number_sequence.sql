@@ -1,0 +1,3 @@
+CREATE SEQUENCE ticket_number_seq
+    START WITH 1001
+    INCREMENT BY 1;
