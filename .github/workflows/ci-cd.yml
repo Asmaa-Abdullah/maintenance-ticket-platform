@@ -93,9 +93,14 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Run TypeScript Type Check
+        run: npm run typecheck
+
+      - name: Check Prettier Formatting
+        run: npm run format:check
+
       - name: Build Frontend
         run: npm run build
-
 
   # ==============================
   # Final Pipeline Result
