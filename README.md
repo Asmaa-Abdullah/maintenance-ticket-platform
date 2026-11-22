@@ -233,6 +233,7 @@ The pipeline focuses on continuous integration. Docker image publishing and appl
 
 ## Project Structure
 
+```text
 maintenance-ticket-platform/
 │
 ├── .github/
@@ -266,6 +267,7 @@ maintenance-ticket-platform/
 │
 ├── docker-compose.yml
 └── README.md
+```
 
 ---
 
